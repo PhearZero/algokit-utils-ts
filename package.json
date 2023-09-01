@@ -1,6 +1,6 @@
 {
   "name": "@algorandfoundation/algokit-utils",
-  "version": "0.1.0",
+  "version": "4.0.0",
   "private": false,
   "description": "A set of core Algorand utilities written in TypeScript and released via npm that make it easier to build solutions on Algorand.",
   "author": "Algorand Foundation",
@@ -9,19 +9,25 @@
     "node": ">=18.0"
   },
   "type": "module",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "types": "./types/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
-        "types/index.d.ts"
+        "dist/types/index.d.ts"
       ],
-      "types/*": [
-        "types/types/*.d.ts"
+      "types": [
+        "dist/types/types/index.d.ts"
       ],
-      "testing/*": [
-        "types/testing/*.d.ts"
+      "types*": [
+        "dist/types/types/*.d.ts"
+      ],
+      "testing": [
+        "dist/types/testing/index.d.ts"
+      ],
+      "testing*": [
+        "dist/types/testing/*.d.ts"
       ]
     }
   },
@@ -30,18 +36,19 @@
   ],
   "exports": {
     ".": {
-      "import": "./esm/index.js",
-      "require": "./cjs/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     },
     "./types/*": {
-      "import": "./esm/types/*.js",
-      "require": "./cjs/types/*.js"
+      "import": "./dist/esm/types/*.js",
+      "require": "./dist/cjs/types/*.js"
     },
     "./testing": {
-      "import": "./esm/testing/index.js",
-      "require": "./cjs/testing/index.js"
+      "import": "./dist/esm/testing/index.js",
+      "require": "./dist/cjs/testing/index.js",
+      "types": "./dist/types/testing/index.d.ts"
     },
-    "./index.d.ts": "./types/index.d.ts",
+    "./index.d.ts": "./dist/types/index.d.ts",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -49,7 +56,7 @@
     "build:0-clean": "rimraf dist coverage",
     "build:1-compile-cjs": "tsc -p tsconfig.cjs.json",
     "build:2-compile-esm": "tsc -p tsconfig.esm.json",
-    "build:3-copy-pkg-json": "npx --yes @makerx/ts-toolkit@latest copy-package-json --main ./cjs/index.js --types ./types/index.d.ts --custom-sections exports typesVersions module",
+    "build:3-copy-pkg-json": "tstk copy-package-json --strip dist/ --main ./cjs/index.js --types ./types/index.d.ts --custom-sections exports typesVersions module",
     "build:4-copy-readme": "copyfiles README.md dist",
     "test": "dotenv -e .env -- jest --coverage --passWithNoTests",
     "lint": "eslint ./src/ --ext .ts",
@@ -78,6 +85,7 @@
     "@makerx/eslint-config": "^3.1.0",
     "@makerx/prettier-config": "^2.0.0",
     "@makerx/ts-config": "^1.0.1",
+    "@makerx/ts-toolkit": "3.1.0",
     "@tsconfig/node16": "^16.1.0",
     "@types/jest": "^29.5.2",
     "@types/uuid": "^9.0.2",
