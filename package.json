@@ -17,17 +17,11 @@
       ".": [
         "types/index.d.ts"
       ],
-      "types/app": [
-        "types/types/app.d.ts"
+      "types/*": [
+        "types/types/*.d.ts"
       ],
-      "types/app-client": [
-        "types/types/app-client.d.ts"
-      ],
-      "types/app-spec": [
-        "types/types/app-spec.d.ts"
-      ],
-      "types/transaction": [
-        "types/types/transaction.d.ts"
+      "testing/*": [
+        "types/testing/*.d.ts"
       ]
     }
   },
